@@ -7,61 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="55de1dae-b6f9-4653-90b2-5438fc2bb3a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Response.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ably-java-1.0.1-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ably-java-1.0.1-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ably-java-1.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ably-java-1.0.7.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/msgpack-core-0.8.11.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/mysql-connector.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/BoardState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/CellState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/CommandType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Difficulty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Direction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/FullBoardState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/GameSpecification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/GameState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Move.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/PartialBoardState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/PartialStatePreference.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/RevealState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Session.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/StatelessGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/exception/InvalidCellReferenceException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/exception/InvalidGameSpecificationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/GameCreatedResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/GameMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/GetGameResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/GetStateResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/InvalidParameterResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/JoinedGameResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/ListGamesResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/MissingParameterResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/PlayResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/response/UnknownFailureResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/CreateGameServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/GetGameServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/GetStateServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/HelloWorldServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/JoinGameServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/ListGamesServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/servlets/PlayServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/APIUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/AuthUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/InputValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/TimeUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/.idea/api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/model/Game.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../api/model/Session.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../keys/rds config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../keys/rds config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/servlets/HelloWorldServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/HelloWorldServlet.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -115,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servlets/HelloWorldServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+            <state relative-caret-position="459">
+              <caret line="27" column="106" selection-start-line="27" selection-start-column="106" selection-end-line="27" selection-end-column="106" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -284,6 +230,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/msgpack-core-0.8.11.jar!/" />
@@ -324,16 +271,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1567925688027</updated>
-      <workItem from="1567925689649" duration="7193000" />
+      <workItem from="1567925689649" duration="7891000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7193000" />
+    <option name="totallyTimeSpent" value="7891000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" />
       <window_info id="Image Layers" />
@@ -695,8 +641,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/servlets/HelloWorldServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="51" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+        <state relative-caret-position="459">
+          <caret line="27" column="106" selection-start-line="27" selection-start-column="106" selection-end-line="27" selection-end-column="106" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

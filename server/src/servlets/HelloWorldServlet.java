@@ -25,7 +25,7 @@ public class HelloWorldServlet extends javax.servlet.http.HttpServlet {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Game");
             int count = 0;
             while (rs.next()) {
-                response.getWriter().println(rs.getInt(0) + "  " + rs.getString(1) + "  " + rs.getString(2));
+                response.getWriter().println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
                 count++;
             }
             response.getWriter().println("Count: " + count);
