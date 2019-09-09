@@ -1,2 +1,15 @@
+hostname: ec2-18-191-90-92.us-east-2.compute.amazonaws.com
+
+
+
+DB: 
+
+minesweeperdb.cdrlmrmeqih0.us-east-2.rds.amazonaws.com
 master username: admin
 master password: nk123nk123
+
+
+PHPMYADMIN:
+
+phpmyadmin
+nk123nk123
