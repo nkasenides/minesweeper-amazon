@@ -16,12 +16,12 @@ public class GameSpecification {
 
     private GameSpecification() { }
 
-    public GameSpecification(int maxPlayers, int width, int height, Difficulty difficulty) {
+    public GameSpecification(int maxPlayers, int width, int height, Difficulty difficulty, String gameToken) {
         this.maxPlayers = maxPlayers;
         this.width = width;
         this.height = height;
         this.difficulty = difficulty;
-        this.gameToken = UUID.randomUUID().toString().replace("-", "");
+        this.gameToken = gameToken;
     }
 
     public String getGameToken() {
@@ -44,8 +44,8 @@ public class GameSpecification {
         this.difficulty = difficulty;
     }
 
-    public GameSpecification(int maxPlayers, int width, int height) throws InvalidGameSpecificationException {
-        this(maxPlayers, width, height, DEFAULT_DIFFICULTY);
+    public GameSpecification(int maxPlayers, int width, int height, String gameToken) throws InvalidGameSpecificationException {
+        this(maxPlayers, width, height, DEFAULT_DIFFICULTY, gameToken);
     }
 
     public int getMaxPlayers() {

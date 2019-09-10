@@ -9,7 +9,7 @@ import model.StatelessGame;
 public class GetGameResponse extends SuccessResponse {
 
     public GetGameResponse(StatelessGame game) {
-        super("Games fetched", "Game with token '" + game.getToken() + "' has been fetched.");
+        super("Games fetched", "Game with token '" + game.getGameSpecification().getGameToken() + "' has been fetched.");
         JsonObject data = new JsonObject();
         data.add("game", new Gson().toJsonTree(game).getAsJsonObject());
         setData(data);

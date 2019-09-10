@@ -2,18 +2,12 @@ package model;
 
 public class StatelessGame {
 
-    private final String token;
     private final GameSpecification gameSpecification;
     private final GameState gameState;
 
-    public StatelessGame(String token, GameSpecification gameSpecification, GameState gameState) {
-        this.token = token;
+    public StatelessGame(GameSpecification gameSpecification, GameState gameState) {
         this.gameSpecification = gameSpecification;
         this.gameState = gameState;
-    }
-
-    public String getToken() {
-        return token;
     }
 
     public GameSpecification getGameSpecification() {
@@ -25,7 +19,7 @@ public class StatelessGame {
     }
 
     public static StatelessGame fromGame(Game game) {
-        return new StatelessGame(game.getToken(), game.getGameSpecification(), game.getGameState());
+        return new StatelessGame(game.getGameSpecification(), game.getGameState());
     }
 
 }
