@@ -127,7 +127,7 @@ public class CreateGameServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(500);
-            response.getWriter().write(new ErrorResponse("Game not created", "Failed to create a game.").toJSON());
+            response.getWriter().write(new ErrorResponse("Game not created", "Failed to create a game." + e.getMessage()).toJSON());
         }
 
     }

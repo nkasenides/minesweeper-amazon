@@ -45,7 +45,7 @@ public class ListGamesServlet extends HttpServlet {
         }
         catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().write(new ErrorResponse("Operation failed", "Unable to fetch games.").toJSON());
+            response.getWriter().write(new ErrorResponse("Operation failed", "Unable to fetch games." + e.getMessage()).toJSON());
         }
 
     }
