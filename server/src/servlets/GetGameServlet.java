@@ -1,7 +1,6 @@
 package servlets;
 
 import com.panickapps.response.ErrorResponse;
-import model.Game;
 import model.StatelessGame;
 import model.response.GetGameResponse;
 import model.response.MissingParameterResponse;
@@ -32,7 +31,7 @@ public class GetGameServlet extends HttpServlet {
 
         //5 - Process request:
         try {
-            final StatelessGame game = MinesweeperDB.getGame(gameToken);
+            final StatelessGame game = MinesweeperDB.getStatelessGame(gameToken);
             if (game == null) {
                 response.getWriter().write(new ErrorResponse("Game not found", "The game with token '" + gameToken + "' was not found.").toJSON());
             }

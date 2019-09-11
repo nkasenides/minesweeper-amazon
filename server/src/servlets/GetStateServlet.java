@@ -8,13 +8,16 @@ import model.Session;
 import model.exception.InvalidCellReferenceException;
 import model.response.GetStateResponse;
 import model.response.MissingParameterResponse;
+import model.response.UnknownFailureResponse;
 import util.APIUtils;
+import util.MinesweeperDB;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.sql.SQLException;
 
 public class GetStateServlet extends HttpServlet {
 
@@ -33,36 +36,41 @@ public class GetStateServlet extends HttpServlet {
         }
 
         //4 - Validate params:
-        //TODO GET SESSION BY SESSION ID.
-//        final List<Session> sessionList = ofy().load().type(Session.class).filter("sessionID", sessionID).limit(1).list();
-//        if (sessionList.size() < 1) {
-//            response.getWriter().write(new ErrorResponse("Invalid session ID", "The session ID '" + sessionID + "' is invalid. No session exists with this ID.").toJSON());
-//            return;
-//        }
+        Session session = null;
+        try {
+            session = MinesweeperDB.getSession(sessionID);
+        } catch (SQLException e) {
+            response.getWriter().write(new UnknownFailureResponse("Could not find session." + e.getMessage()).toJSON());
+            return;
+        }
 
+        if (session == null) {
+            response.getWriter().write(new ErrorResponse("Session not found", "Could not find session with ID '" + sessionID + "'").toJSON());
+            return;
+        }
 
-        //TODO GET SESSION'S REFERENCED GAME
-//        Session referencedSession = sessionList.get(0);
-//        Game referencedGame = ofy().load().key(referencedSession.getGameKey()).now();
+        Game game = null;
+        try {
+            game = MinesweeperDB.getGame(session.getGameToken());
+        } catch (SQLException e) {
+            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+            return;
+        }
 
-        //5 - Process request:
+        if (game == null) {
+            response.getWriter().write(new ErrorResponse("Game not found", "Could not find game with token '" + session.getGameToken() + "'").toJSON());
+            return;
+        }
 
-        //TODO CHECK IF NO REF GAME EXISTS
-//        if (referencedGame == null) {
-//            response.getWriter().write(new ErrorResponse("Game not found", "The game referenced by this session does not exist. It may have been deleted.").toJSON());
-//            return;
-//        }
-
-        //TODO GET PARTIAL STATE FROM THE FULL STATE OF THE SESSION'S GAME
-//        PartialStatePreference partialStatePreference = referencedSession.getPartialStatePreference();
-//        try {
-//            PartialBoardState partialBoardState = new PartialBoardState(partialStatePreference.getWidth(), partialStatePreference.getHeight(), referencedSession.getPositionRow(), referencedSession.getPositionCol(), referencedGame.getFullBoardState());
-//            response.getWriter().write(new GetStateResponse(partialBoardState, referencedGame.getGameState(), sessionID).toJSON());
-//        }
-//        //If failed to get the partial state, return error:
-//        catch (InvalidCellReferenceException e) {
-//            response.getWriter().write(new ErrorResponse("Error fetching partial state for session '" + sessionID + "'.", e.getMessage()).toJSON());
-//        }
+        PartialStatePreference partialStatePreference = session.getPartialStatePreference();
+        try {
+            PartialBoardState partialBoardState = new PartialBoardState(partialStatePreference.getWidth(), partialStatePreference.getHeight(), session.getPositionRow(), session.getPositionCol(), game.getFullBoardState());
+            response.getWriter().write(new GetStateResponse(partialBoardState, game.getGameState(), sessionID).toJSON());
+        }
+        //If failed to get the partial state, return error:
+        catch (InvalidCellReferenceException e) {
+            response.getWriter().write(new ErrorResponse("Error fetching partial state for session '" + sessionID + "'.", e.getMessage()).toJSON());
+        }
 
 
     }

@@ -7,14 +7,17 @@ import model.Session;
 import model.response.InvalidParameterResponse;
 import model.response.JoinedGameResponse;
 import model.response.MissingParameterResponse;
+import model.response.UnknownFailureResponse;
 import util.APIUtils;
 import util.InputValidator;
+import util.MinesweeperDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class JoinGameServlet extends HttpServlet {
@@ -76,14 +79,18 @@ public class JoinGameServlet extends HttpServlet {
         }
 
 
-        //TODO GET GAME BY TOKEN GIVEN
-//        final List<Game> games = ofy().load().type(Game.class).filter("token", gameToken).limit(1).list();
-//        if (games.size() < 1) {
-//            response.getWriter().write(new ErrorResponse("Game not found", "The game with token '" + gameToken + "' was not found.").toJSON());
-//            return;
-//        }
+        Game game = null;
+        try {
+            game = MinesweeperDB.getGame(gameToken);
+        } catch (SQLException e) {
+            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+            return;
+        }
 
-//        final Game referencedGame = games.get(0);
+        if (game == null) {
+            response.getWriter().write(new ErrorResponse("Game not found", "Could not find game with token '" + gameToken + "'").toJSON());
+            return;
+        }
 
         //check player name
         if (!InputValidator.validateStringAlNumOnly(playerName)) {
@@ -96,43 +103,46 @@ public class JoinGameServlet extends HttpServlet {
             return;
         }
 
-        //TODO check if game exists
-//        final List<Session> sessions = ofy().load().type(Session.class).filter("gameToken", gameToken).filter("playerName", playerName).list();
-//        if (sessions.size() > 0) {
-//            response.getWriter().write(new ErrorResponse("Player already exists", "The player with name '" + playerName + "' already exists in game with token '" + gameToken + "'.").toJSON());
-//            return;
-//        }
+        //Check if player is in game already:
+        try {
+            if (MinesweeperDB.playerIsInGame(playerName, gameToken)) {
+                response.getWriter().write(new ErrorResponse("Player already exists", "The player with name '" + playerName + "' already exists in game with token '" + gameToken + "'.").toJSON());
+                return;
+            }
+        } catch (Exception e) {
+            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+            return;
+        }
 
-        //TODO check for max players
-//        final List<Session> sessionsInGame = ofy().load().type(Session.class).filter("gameToken", gameToken).list();
-//        if (sessionsInGame.size() >= referencedGame.getGameSpecification().getMaxPlayers()) {
-//            response.getWriter().write(new ErrorResponse("Game full", "Game with token '" + gameToken + "' is already full (" + sessionsInGame.size() + "/" + referencedGame.getGameSpecification().getMaxPlayers() + ").").toJSON());
-//            return;
-//        }
+        try {
+            final int numOfSessionsInGame = MinesweeperDB.numOfSessionsInGame(gameToken);
+            if (numOfSessionsInGame >= game.getGameSpecification().getMaxPlayers()) {
+                response.getWriter().write(new ErrorResponse("Game full", "Game with token '" + gameToken + "' is already full (" + numOfSessionsInGame + "/" + game.getGameSpecification().getMaxPlayers() + ").").toJSON());
+                return;
+            }
+        } catch (Exception e) {
+            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+            return;
+        }
 
-        //TODO check for partial state sizes:
-//        if (partialStateWidth > referencedGame.getGameSpecification().getWidth()) {
-//            response.getWriter().write(new ErrorResponse("Invalid partial state width", "The partial state width cannot be more than " + referencedGame.getGameSpecification().getWidth() + ".").toJSON());
-//            return;
-//        }
+        if (partialStateWidth > game.getGameSpecification().getWidth()) {
+            response.getWriter().write(new ErrorResponse("Invalid partial state width", "The partial state width cannot be more than " + game.getGameSpecification().getWidth() + ".").toJSON());
+            return;
+        }
 
-//        if (partialStateHeight > referencedGame.getGameSpecification().getHeight()) {
-//            response.getWriter().write(new ErrorResponse("Invalid partial state height", "The partial state height cannot be more than " + referencedGame.getGameSpecification().getHeight() + ".").toJSON());
-//            return;
-//        }
-
+        if (partialStateHeight > game.getGameSpecification().getHeight()) {
+            response.getWriter().write(new ErrorResponse("Invalid partial state height", "The partial state height cannot be more than " + game.getGameSpecification().getHeight() + ".").toJSON());
+            return;
+        }
 
         //5 - Process request:
-        //TODO CREATE THE SESSION IN THE DATABASE
-//        final Session session = new Session(new PartialStatePreference(partialStateWidth, partialStateHeight), playerName, gameToken, false);
-//        session.setGameKey(referencedGame.getKey());
-//
-//        Key<Session> sessionKey = ofy().save().entity(session).now();
-//        if (sessionKey == null) {
-//            response.getWriter().write(new ErrorResponse("Failed to join", "Failed to join game (unknown error).").toJSON());
-//        } else {
-//            response.getWriter().write(new JoinedGameResponse(gameToken, session.getSessionID()).toJSON());
-//        }
+        try {
+            final Session session = new Session(new PartialStatePreference(partialStateWidth, partialStateHeight), playerName, gameToken, false);
+            MinesweeperDB.createSession(session);
+            response.getWriter().write(new JoinedGameResponse(gameToken, session.getSessionID()).toJSON());
+        } catch (Exception e) {
+            response.getWriter().write(new ErrorResponse("Failed to join", "Failed to join game (unknown error).").toJSON());
+        }
 
     }
 

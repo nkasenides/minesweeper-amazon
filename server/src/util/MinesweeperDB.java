@@ -56,7 +56,7 @@ public class MinesweeperDB {
         return games;
     }
 
-    public static StatelessGame getGame(final String gameToken) throws SQLException {
+    public static StatelessGame getStatelessGame(final String gameToken) throws SQLException {
         final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
         final String query = "SELECT * FROM Game WHERE token='" + gameToken + "' LIMIT 1;";
         final Statement statement = connection.createStatement();
@@ -74,6 +74,91 @@ public class MinesweeperDB {
         statement.close();
         DBConnection.close();
         return statelessGame;
+    }
+
+    public static Game getGame(final String gameToken) throws SQLException {
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final String query = "SELECT * FROM Game WHERE token='" + gameToken + "' LIMIT 1;";
+        final Statement statement = connection.createStatement();
+        final ResultSet rs = statement.executeQuery(query);
+        Game game = null;
+        while (rs.next()) {
+            final Difficulty difficulty = Difficulty.valueOf(rs.getString("difficulty"));
+            final int maxPlayers = rs.getInt("maxPlayers");
+            final int width = rs.getInt("width");
+            final int height = rs.getInt("height");
+            final GameState gameState = GameState.valueOf(rs.getString("gameState"));
+            final String token = rs.getString("token");
+            game = new Game(new GameSpecification(maxPlayers, width,height, difficulty, token));
+            game.setGameState(gameState);
+        }
+        statement.close();
+        DBConnection.close();
+        return game;
+    }
+
+    public static Session getSession(final String sessionID) throws SQLException {
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final String query = "SELECT * FROM Session WHERE sessionID='" + sessionID + "' LIMIT 1;";
+        final Statement statement = connection.createStatement();
+        final ResultSet rs = statement.executeQuery(query);
+        Session session = null;
+        while (rs.next()) {
+            final String playerName = rs.getString("playerName");
+            final int sessionWidth = rs.getInt("partialStateWidth");
+            final int sessionHeight = rs.getInt("partialStateHeight");
+            final String gameToken = rs.getString("gameToken");
+            final boolean spectator = rs.getBoolean("spectator");
+            session = new Session(new PartialStatePreference(sessionWidth, sessionHeight), playerName, gameToken, spectator);
+        }
+        statement.close();
+        DBConnection.close();
+        return session;
+    }
+
+    public static boolean playerIsInGame(final String playerName, final String gameToken) throws SQLException {
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final String query = "SELECT * FROM Session WHERE playerName='" + playerName + "' AND gameToken='" + gameToken + "';";
+        final Statement statement = connection.createStatement();
+        final ResultSet rs = statement.executeQuery(query);
+        int count = 0;
+        while (rs.next()) {
+            count++;
+        }
+        statement.close();
+        DBConnection.close();
+        return count > 0;
+    }
+
+    public static int numOfSessionsInGame(final String gameToken) throws SQLException {
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final String query = "SELECT * FROM Session WHERE gameToken='" + gameToken + "';";
+        final Statement statement = connection.createStatement();
+        final ResultSet rs = statement.executeQuery(query);
+        int count = 0;
+        while (rs.next()) {
+            count++;
+        }
+        statement.close();
+        DBConnection.close();
+        return count;
+    }
+
+    public static void createSession(final Session session) throws SQLException {
+        Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        String query = "INSERT INTO Session (gameToken, partialStateWidth, partialStateHeight, playerName, points, positionCol, positionRow, sessionID, spectator) VALUES (?,?,?,?,?,?,?,?,?);";
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
+        preparedStmt.setString(1, session.getGameToken());
+        preparedStmt.setInt(2, session.getPartialStatePreference().getWidth());
+        preparedStmt.setInt(3, session.getPartialStatePreference().getHeight());
+        preparedStmt.setString(4, session.getPlayerName());
+        preparedStmt.setInt(5, session.getPoints());
+        preparedStmt.setInt(6, session.getPositionCol());
+        preparedStmt.setInt(7, session.getPositionRow());
+        preparedStmt.setString(8, session.getSessionID());
+        preparedStmt.setBoolean(9, session.isSpectator());
+        preparedStmt.execute();
+        DBConnection.close();
     }
 
 }
