@@ -1,8 +1,13 @@
 package servlets;
 
+import com.panickapps.response.ErrorResponse;
 import model.Game;
+import model.StatelessGame;
+import model.response.GetGameResponse;
 import model.response.MissingParameterResponse;
+import model.response.UnknownFailureResponse;
 import util.APIUtils;
+import util.MinesweeperDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,23 +31,17 @@ public class GetGameServlet extends HttpServlet {
         }
 
         //5 - Process request:
-        Game game;
-
-        //TODO FETCH THE GAME FROM THE DATABASE
-
-//        final List<Game> games = ofy().load().type(Game.class).filter("token", gameToken).limit(1).list();
-//        if (games.size() < 1) {
-//            response.getWriter().write(new ErrorResponse("Game not found", "The game with token '" + gameToken + "' was not found.").toJSON());
-//            return;
-//        }
-//
-//        game = games.get(0);
-//
-//        StatelessGame statelessGame = StatelessGame.fromGame(game);
-//
-//        response.getWriter().write(new GetGameResponse(statelessGame).toJSON());
-
-
+        try {
+            final StatelessGame game = MinesweeperDB.getGame(gameToken);
+            if (game == null) {
+                response.getWriter().write(new ErrorResponse("Game not found", "The game with token '" + gameToken + "' was not found.").toJSON());
+            }
+            else {
+                response.getWriter().write(new GetGameResponse(game).toJSON());
+            }
+        } catch (Exception e) {
+            response.getWriter().write(new UnknownFailureResponse("Failed to create a game." + e.getMessage()).toJSON());
+        }
 
     }
 }

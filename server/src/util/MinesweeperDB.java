@@ -32,9 +32,9 @@ public class MinesweeperDB {
     }
 
     public static ArrayList<StatelessGame> listGames(boolean startedOnly) throws SQLException {
-        Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
         String query = "SELECT * FROM Game";
-        String postfix = (startedOnly) ? " WHERE gameState='STARTED';" : ";";
+        final String postfix = (startedOnly) ? " WHERE gameState='STARTED';" : ";";
         query += postfix;
 
         ArrayList<StatelessGame> games = new ArrayList<>();
@@ -54,6 +54,26 @@ public class MinesweeperDB {
         statement.close();
         DBConnection.close();
         return games;
+    }
+
+    public static StatelessGame getGame(final String gameToken) throws SQLException {
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final String query = "SELECT * FROM Game WHERE token='" + gameToken + "' LIMIT 1;";
+        final Statement statement = connection.createStatement();
+        final ResultSet rs = statement.executeQuery(query);
+        StatelessGame statelessGame = null;
+        while (rs.next()) {
+            final Difficulty difficulty = Difficulty.valueOf(rs.getString("difficulty"));
+            final int maxPlayers = rs.getInt("maxPlayers");
+            final int width = rs.getInt("width");
+            final int height = rs.getInt("height");
+            final GameState gameState = GameState.valueOf(rs.getString("gameState"));
+            final String token = rs.getString("token");
+            statelessGame = new StatelessGame(new GameSpecification(maxPlayers, width, height, difficulty, token), gameState);
+        }
+        statement.close();
+        DBConnection.close();
+        return statelessGame;
     }
 
 }
