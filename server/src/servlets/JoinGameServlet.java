@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 public class JoinGameServlet extends HttpServlet {
 
@@ -137,7 +138,8 @@ public class JoinGameServlet extends HttpServlet {
 
         //5 - Process request:
         try {
-            final Session session = new Session(new PartialStatePreference(partialStateWidth, partialStateHeight), playerName, gameToken, false);
+            final String sessionID = UUID.randomUUID().toString();
+            final Session session = new Session(sessionID, new PartialStatePreference(partialStateWidth, partialStateHeight), playerName, gameToken, false);
             MinesweeperDB.createSession(session);
             response.getWriter().write(new JoinedGameResponse(gameToken, session.getSessionID()).toJSON());
         } catch (Exception e) {

@@ -13,8 +13,8 @@ public class Session {
     private final boolean spectator;
     private int points;
 
-    public Session(PartialStatePreference partialStatePreference, String playerName, String gameToken, boolean spectator) {
-        this.sessionID = UUID.randomUUID().toString();
+    public Session(String sessionID, PartialStatePreference partialStatePreference, String playerName, String gameToken, boolean spectator) {
+        this.sessionID = sessionID;
         this.partialStatePreference = partialStatePreference;
         this.playerName = playerName;
         this.gameToken = gameToken;

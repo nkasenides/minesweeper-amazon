@@ -30,6 +30,10 @@ public class Game {
         return fullBoardState;
     }
 
+    public void setFullBoardState(FullBoardState fullBoardState) {
+        this.fullBoardState = fullBoardState;
+    }
+
     private void initializeMatrix() {
         for (int row = 0; row < fullBoardState.getCells().length; row++) {
             for (int col = 0; col < fullBoardState.getCells()[row].length; col++) {

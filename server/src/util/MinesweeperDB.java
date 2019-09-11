@@ -17,7 +17,6 @@ public class MinesweeperDB {
     public static void addGame(final Game game) throws SQLException {
         Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
         String query = "INSERT INTO Game (boardState, difficulty, maxPlayers, height, width, gameState, token) VALUES (?,?,?,?,?,?,?);";
-
         Gson gson = new Gson();
         PreparedStatement preparedStmt = connection.prepareStatement(query);
         preparedStmt.setString(1, gson.toJson(game.getFullBoardState()));
@@ -80,6 +79,7 @@ public class MinesweeperDB {
         final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
         final String query = "SELECT * FROM Game WHERE token='" + gameToken + "' LIMIT 1;";
         final Statement statement = connection.createStatement();
+        final Gson gson = new Gson();
         final ResultSet rs = statement.executeQuery(query);
         Game game = null;
         while (rs.next()) {
@@ -89,7 +89,9 @@ public class MinesweeperDB {
             final int height = rs.getInt("height");
             final GameState gameState = GameState.valueOf(rs.getString("gameState"));
             final String token = rs.getString("token");
+            final String boardState = rs.getString("boardState");
             game = new Game(new GameSpecification(maxPlayers, width,height, difficulty, token));
+            game.setFullBoardState(gson.fromJson(boardState, FullBoardState.class));
             game.setGameState(gameState);
         }
         statement.close();
@@ -109,7 +111,7 @@ public class MinesweeperDB {
             final int sessionHeight = rs.getInt("partialStateHeight");
             final String gameToken = rs.getString("gameToken");
             final boolean spectator = rs.getBoolean("spectator");
-            session = new Session(new PartialStatePreference(sessionWidth, sessionHeight), playerName, gameToken, spectator);
+            session = new Session(sessionID, new PartialStatePreference(sessionWidth, sessionHeight), playerName, gameToken, spectator);
         }
         statement.close();
         DBConnection.close();
@@ -144,6 +146,26 @@ public class MinesweeperDB {
         return count;
     }
 
+    public static ArrayList<Session> getSessionsOfGame(final String gameToken) throws SQLException {
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final String query = "SELECT * FROM Session WHERE gameToken='" + gameToken + "';";
+        ArrayList<Session> sessionsInGame = new ArrayList<>();
+        final Statement statement = connection.createStatement();
+        final ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+            final String playerName = rs.getString("playerName");
+            final int sessionWidth = rs.getInt("partialStateWidth");
+            final int sessionHeight = rs.getInt("partialStateHeight");
+            final String sessionID = rs.getString("sessionID");
+            final boolean spectator = rs.getBoolean("spectator");
+            Session session = new Session(sessionID, new PartialStatePreference(sessionWidth, sessionHeight), playerName, gameToken, spectator);
+            sessionsInGame.add(session);
+        }
+        statement.close();
+        DBConnection.close();
+        return sessionsInGame;
+    }
+
     public static void createSession(final Session session) throws SQLException {
         Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
         String query = "INSERT INTO Session (gameToken, partialStateWidth, partialStateHeight, playerName, points, positionCol, positionRow, sessionID, spectator) VALUES (?,?,?,?,?,?,?,?,?);";
@@ -157,6 +179,24 @@ public class MinesweeperDB {
         preparedStmt.setInt(7, session.getPositionRow());
         preparedStmt.setString(8, session.getSessionID());
         preparedStmt.setBoolean(9, session.isSpectator());
+        preparedStmt.execute();
+        DBConnection.close();
+    }
+
+    public static void saveGame(final Game game) throws SQLException {
+        Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        Gson gson = new Gson();
+        String boardState = gson.toJson(game.getFullBoardState());
+        String query = "UPDATE Game SET gameState='" + game.getGameState().toString() + "', boardState='" + boardState + "' WHERE token='" + game.getToken() + "';";
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
+        preparedStmt.execute();
+        DBConnection.close();
+    }
+
+    public static void saveSession(final Session session) throws SQLException {
+        Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        String query = "UPDATE Session SET points=" + session.getPoints() + ", positionCol=" + session.getPositionCol() + ", positionRow=" + session.getPositionRow() + " WHERE sessionID='" + session.getSessionID() + "'";
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
         preparedStmt.execute();
         DBConnection.close();
     }
