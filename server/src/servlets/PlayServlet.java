@@ -27,14 +27,12 @@ import java.util.logging.Logger;
 
 public class PlayServlet extends HttpServlet {
 
-    private final Logger logger = Logger.getLogger(PlayServlet.class.getName());
-
     private AblyRealtime ably;
     private Channel channel;
 
     public PlayServlet() {
         try {
-            ably = new AblyRealtime("B9a5UQ.3-JWBw:awma5SPHfYcjXeIU");
+            ably = new AblyRealtime("ooYf5g.nTRfDw:6bmzECLuh5BdDIaG");
         } catch (AblyException e) {
             e.printStackTrace();
         }
