@@ -202,7 +202,7 @@ public class PlayerClient implements Runnable {
                             channel.subscribe(new Channel.MessageListener() {
                                 @Override
                                 public void onMessage(Message message) {
-                                    System.out.println("Received `" + message.name + "` message with data: " + message.data);
+                                    System.out.println("Ably - Received `" + message.name + "` message with data: " + message.data);
                                     GameMessage gameMessage = new Gson().fromJson((String) message.data, GameMessage.class);
                                     partialBoardState = gameMessage.getPartialBoardState();
                                     gameState = gameMessage.getGameState();
