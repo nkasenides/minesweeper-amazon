@@ -95,7 +95,7 @@ public class PlayServlet extends HttpServlet {
             return;
         }
 
-        //TODO Parse move:
+        //Parse move:
         Move move;
         try {
             move = Move.valueOf(moveStr);
@@ -186,7 +186,7 @@ public class PlayServlet extends HttpServlet {
                 }
 
                 //Respond:
-//                publishStateToAllPlayers(game); //TODO
+                publishStateToAllPlayers(game);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
 
@@ -210,7 +210,7 @@ public class PlayServlet extends HttpServlet {
                     return;
                 }
 
-//                publishStateToAllPlayers(game); TODO
+                publishStateToAllPlayers(game);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
 
@@ -238,7 +238,7 @@ public class PlayServlet extends HttpServlet {
                     return;
                 }
 
-//                publishStateToPlayer(game, session); TODO
+                publishStateToPlayer(game, session);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
         }
