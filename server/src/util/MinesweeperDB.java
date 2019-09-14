@@ -15,7 +15,7 @@ public class MinesweeperDB {
     private static final String PASSWORD = "nk123nk123";
 
     public static void addGame(final Game game) throws SQLException {
-        Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
+        final Connection connection = DBConnection.connect(DB_URL, DB_NAME, USERNAME, PASSWORD);
         String query = "INSERT INTO Game (boardState, difficulty, maxPlayers, height, width, gameState, token) VALUES (?,?,?,?,?,?,?);";
         Gson gson = new Gson();
         PreparedStatement preparedStmt = connection.prepareStatement(query);
@@ -27,7 +27,7 @@ public class MinesweeperDB {
         preparedStmt.setString(6, game.getGameState().toString());
         preparedStmt.setString(7, game.getGameSpecification().getGameToken());
         preparedStmt.execute();
-        DBConnection.close();
+        connection.close();
     }
 
     public static ArrayList<StatelessGame> listGames(boolean startedOnly) throws SQLException {
@@ -51,7 +51,7 @@ public class MinesweeperDB {
             games.add(game);
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return games;
     }
 
@@ -71,7 +71,7 @@ public class MinesweeperDB {
             statelessGame = new StatelessGame(new GameSpecification(maxPlayers, width, height, difficulty, token), gameState);
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return statelessGame;
     }
 
@@ -95,7 +95,7 @@ public class MinesweeperDB {
             game.setGameState(gameState);
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return game;
     }
 
@@ -114,7 +114,7 @@ public class MinesweeperDB {
             session = new Session(sessionID, new PartialStatePreference(sessionWidth, sessionHeight), playerName, gameToken, spectator);
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return session;
     }
 
@@ -128,7 +128,7 @@ public class MinesweeperDB {
             count++;
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return count > 0;
     }
 
@@ -142,7 +142,7 @@ public class MinesweeperDB {
             count++;
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return count;
     }
 
@@ -162,7 +162,7 @@ public class MinesweeperDB {
             sessionsInGame.add(session);
         }
         statement.close();
-        DBConnection.close();
+        connection.close();
         return sessionsInGame;
     }
 
@@ -180,7 +180,7 @@ public class MinesweeperDB {
         preparedStmt.setString(8, session.getSessionID());
         preparedStmt.setBoolean(9, session.isSpectator());
         preparedStmt.execute();
-        DBConnection.close();
+        connection.close();
     }
 
     public static void saveGame(final Game game) throws SQLException {
@@ -190,7 +190,7 @@ public class MinesweeperDB {
         String query = "UPDATE Game SET gameState='" + game.getGameState().toString() + "', boardState='" + boardState + "' WHERE token='" + game.getToken() + "';";
         PreparedStatement preparedStmt = connection.prepareStatement(query);
         preparedStmt.execute();
-        DBConnection.close();
+        connection.close();
     }
 
     public static void saveSession(final Session session) throws SQLException {
@@ -198,7 +198,7 @@ public class MinesweeperDB {
         String query = "UPDATE Session SET points=" + session.getPoints() + ", positionCol=" + session.getPositionCol() + ", positionRow=" + session.getPositionRow() + " WHERE sessionID='" + session.getSessionID() + "'";
         PreparedStatement preparedStmt = connection.prepareStatement(query);
         preparedStmt.execute();
-        DBConnection.close();
+        connection.close();
     }
 
 }
