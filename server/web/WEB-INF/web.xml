@@ -7,6 +7,10 @@
     <!--Servlets-->
 
     <servlet>
+        <servlet-name>BaseServlet</servlet-name>
+        <servlet-class>servlets.BaseServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>HelloWorldServlet</servlet-name>
         <servlet-class>servlets.HelloWorldServlet</servlet-class>
     </servlet>
@@ -37,6 +41,10 @@
 
     <!--Servlet Mappings-->
 
+    <servlet-mapping>
+        <servlet-name>BaseServlet</servlet-name>
+        <url-pattern>/base</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateGameServlet</servlet-name>
         <url-pattern>/admin/game/create</url-pattern>
