@@ -5,20 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbb4a4cc-d632-487a-b279-77010a61c221" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/api/AsyncTask$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/api/AsyncTask$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/api/AsyncTask$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/api/AsyncTask$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/api/AsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/api/AsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask$1PlayAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask$1PlayAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1ListGamesAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient$1ListGamesAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Minesweeper Client/ui/PlayerClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/AsyncTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/AsyncTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/RequestEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/RequestEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/io/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/PlayerClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PlayerClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -374,12 +360,12 @@
       <workItem from="1568981181629" duration="14000" />
       <workItem from="1569349594635" duration="8427000" />
       <workItem from="1569439940500" duration="648000" />
-      <workItem from="1569499693084" duration="1281000" />
+      <workItem from="1569499693084" duration="1324000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39649000" />
+    <option name="totallyTimeSpent" value="39692000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -392,9 +378,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49919224" visible="true" weight="0.19189766" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49919224" visible="true" weight="0.19189766" />
       <window_info id="Structure" order="1" sideWeight="0.50080776" side_tool="true" weight="0.18763326" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -403,13 +388,13 @@
       <window_info id="Favorites" order="6" sideWeight="0.50080776" side_tool="true" weight="0.18763326" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
