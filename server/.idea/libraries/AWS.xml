@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="AWS">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../Resources/Java/aws-java-sdk-1.11.647/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../Resources/Java/aws-java-sdk-1.11.647/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../Resources/Java/aws-java-sdk-1.11.647/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../Resources/Java/aws-java-sdk-1.11.647/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>

@@ -1,5 +1,8 @@
 package servlets;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.panickapps.response.ErrorResponse;
 import model.Game;
 import model.PartialStatePreference;
@@ -9,8 +12,8 @@ import model.response.JoinedGameResponse;
 import model.response.MissingParameterResponse;
 import model.response.UnknownFailureResponse;
 import util.APIUtils;
+import util.DynamoUtil;
 import util.InputValidator;
-import util.MinesweeperDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -79,12 +83,25 @@ public class JoinGameServlet extends HttpServlet {
             return;
         }
 
+        DynamoDBMapper mapper = DynamoUtil.getMapper();
 
-        Game game = null;
+        //Get the referenced game
+        HashMap<String, AttributeValue> eav = new HashMap<>();
+        eav.put(":v1", new AttributeValue().withS(gameToken));
+
+        DynamoDBScanExpression gameScanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("begins_with(gameToken,:v1)")
+                .withExpressionAttributeValues(eav);
+
+        final List<Game> games =  mapper.scan(Game.class, gameScanExpression);
+
+        Game game;
+
         try {
-            game = MinesweeperDB.getGame(gameToken);
-        } catch (SQLException e) {
-            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+            game = games.get(0);
+        }
+        catch (IndexOutOfBoundsException e) {
+            response.getWriter().write(new ErrorResponse("Game not found", "Could not find game with token '" + gameToken + "'").toJSON());
             return;
         }
 
@@ -104,25 +121,30 @@ public class JoinGameServlet extends HttpServlet {
             return;
         }
 
-        //Check if player is in game already:
-        try {
-            if (MinesweeperDB.playerIsInGame(playerName, gameToken)) {
-                response.getWriter().write(new ErrorResponse("Player already exists", "The player with name '" + playerName + "' already exists in game with token '" + gameToken + "'.").toJSON());
-                return;
+        //Check if player is in game already
+        eav = new HashMap<>();
+        eav.put(":v1", new AttributeValue().withS(gameToken));
+
+        DynamoDBScanExpression nameScanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("begins_with(gameToken,:v1)")
+                .withExpressionAttributeValues(eav);
+
+        final List<Session> sessionsOfTheGame =  mapper.scan(Session.class, nameScanExpression);
+        int playersWithNameInGame = 0;
+        for (Session s : sessionsOfTheGame) {
+            if (s.getPlayerName().equals(playerName)) {
+                playersWithNameInGame++;
             }
-        } catch (Exception e) {
-            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+        }
+
+        if (playersWithNameInGame > 0) {
+            response.getWriter().write(new ErrorResponse("Player already in game", "The player with name " + playerName + " is already in this game.").toJSON());
             return;
         }
 
-        try {
-            final int numOfSessionsInGame = MinesweeperDB.numOfSessionsInGame(gameToken);
-            if (numOfSessionsInGame >= game.getGameSpecification().getMaxPlayers()) {
-                response.getWriter().write(new ErrorResponse("Game full", "Game with token '" + gameToken + "' is already full (" + numOfSessionsInGame + "/" + game.getGameSpecification().getMaxPlayers() + ").").toJSON());
-                return;
-            }
-        } catch (Exception e) {
-            response.getWriter().write(new UnknownFailureResponse("Could not find game." + e.getMessage()).toJSON());
+        //Check max player limit:
+        if (sessionsOfTheGame.size() >= game.getGameSpecification().getMaxPlayers()) {
+            response.getWriter().write(new ErrorResponse("Game full", "Game with token '" + gameToken + "' is already full (" + sessionsOfTheGame.size() + "/" + game.getGameSpecification().getMaxPlayers() + ").").toJSON());
             return;
         }
 
@@ -136,15 +158,12 @@ public class JoinGameServlet extends HttpServlet {
             return;
         }
 
-        //5 - Process request:
-        try {
-            final String sessionID = UUID.randomUUID().toString();
-            final Session session = new Session(sessionID, new PartialStatePreference(partialStateWidth, partialStateHeight), playerName, gameToken, false);
-            MinesweeperDB.createSession(session);
-            response.getWriter().write(new JoinedGameResponse(gameToken, session.getSessionID()).toJSON());
-        } catch (Exception e) {
-            response.getWriter().write(new ErrorResponse("Failed to join", "Failed to join game (unknown error).").toJSON());
-        }
+        //Create the session:
+        final String sessionID = UUID.randomUUID().toString();
+        final Session session = new Session(sessionID, new PartialStatePreference(partialStateWidth, partialStateHeight), playerName, gameToken, false);
+
+        mapper.save(session);
+        response.getWriter().write(new JoinedGameResponse(gameToken, session.getSessionID()).toJSON());
 
     }
 

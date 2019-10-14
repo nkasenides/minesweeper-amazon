@@ -5,6 +5,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.sun.istack.internal.NotNull;
 
@@ -13,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class DynamoDB {
+public class DynamoUtil {
 
-    private static final String ACCESS_KEY = "AKIA3LJJJDS25MMBYGTU";
-    private static final String SECRET_KEY = "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";
+    public static final String ACCESS_KEY = "AKIA3LJJJDS25MMBYGTU";
+    public static final String SECRET_KEY = "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";
     private static AmazonDynamoDB client = null;
 
     public static AmazonDynamoDB get() {
@@ -27,6 +28,11 @@ public class DynamoDB {
                 .withRegion(Regions.US_EAST_2) //Ohio!
                 .build();
         return client;
+    }
+
+    public static DynamoDBMapper getMapper() {
+        AmazonDynamoDB db = get();
+        return new DynamoDBMapper(db);
     }
 
     public static CreateTableResult createTable(@NotNull String tableName, ProvisionedThroughput provisionedThroughput, AttributeDefinition... attributeDefinitions) {
@@ -43,11 +49,35 @@ public class DynamoDB {
         return get().createTable(request);
     }
 
+    public static CreateTableResult createTable(@NotNull String tableName, ProvisionedThroughput provisionedThroughput, String keyName, AttributeDefinition... attributeDefinitions) {
+        AttributeDefinition[] attributeDefinitionsWithKey = new AttributeDefinition[attributeDefinitions.length + 1];
+        for (int i = 0; i < attributeDefinitions.length; i++) {
+            attributeDefinitionsWithKey[i] = attributeDefinitions[i];
+        }
+        attributeDefinitionsWithKey[attributeDefinitionsWithKey.length - 1] = new AttributeDefinition(keyName, ScalarAttributeType.S);
+        CreateTableRequest request = new CreateTableRequest()
+                .withAttributeDefinitions(attributeDefinitionsWithKey)
+                .withKeySchema(new KeySchemaElement(keyName, KeyType.HASH))
+                .withProvisionedThroughput(provisionedThroughput)
+                .withTableName(tableName);
+        return get().createTable(request);
+    }
+
     public static List<String> listTables() {
         ListTablesRequest listTablesRequest;
         listTablesRequest = new ListTablesRequest().withLimit(10);
         ListTablesResult tableList = get().listTables(listTablesRequest);
         return tableList.getTableNames();
+    }
+
+    public static boolean tableExists(@NotNull String tableName) {
+        List<String> tables = listTables();
+        for (String s : tables) {
+            if (s.toLowerCase().equals(tableName.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static TableDescription describeTable(@NotNull String tableName) {

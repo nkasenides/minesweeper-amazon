@@ -11,6 +11,8 @@
           <element id="library" level="project" name="mysql-connector" />
           <element id="library" level="project" name="Response" />
           <element id="library" level="project" name="Ably" />
+          <element id="library" level="project" name="AWS-ThirdParty" />
+          <element id="library" level="project" name="AWS" />
         </element>
       </element>
     </root>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="AWS-ThirdParty">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../Resources/Java/aws-java-sdk-1.11.647/third-party/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../Resources/Java/aws-java-sdk-1.11.647/third-party/lib" recursive="false" />
+  </library>
+</component>

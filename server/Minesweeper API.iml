@@ -23,5 +23,7 @@
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="Response" level="project" />
     <orderEntry type="library" name="Ably" level="project" />
+    <orderEntry type="library" name="AWS" level="project" />
+    <orderEntry type="library" name="AWS-ThirdParty" level="project" />
   </component>
 </module>

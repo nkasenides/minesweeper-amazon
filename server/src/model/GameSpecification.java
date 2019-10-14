@@ -12,20 +12,14 @@ public class GameSpecification {
     private int width;
     private int height;
     private Difficulty difficulty;
-    private String gameToken;
 
     private GameSpecification() { }
 
-    public GameSpecification(int maxPlayers, int width, int height, Difficulty difficulty, String gameToken) {
+    public GameSpecification(int maxPlayers, int width, int height, Difficulty difficulty) {
         this.maxPlayers = maxPlayers;
         this.width = width;
         this.height = height;
         this.difficulty = difficulty;
-        this.gameToken = gameToken;
-    }
-
-    public String getGameToken() {
-        return gameToken;
     }
 
     public void setMaxPlayers(int maxPlayers) {
@@ -44,8 +38,8 @@ public class GameSpecification {
         this.difficulty = difficulty;
     }
 
-    public GameSpecification(int maxPlayers, int width, int height, String gameToken) throws InvalidGameSpecificationException {
-        this(maxPlayers, width, height, DEFAULT_DIFFICULTY, gameToken);
+    public GameSpecification(int maxPlayers, int width, int height) throws InvalidGameSpecificationException {
+        this(maxPlayers, width, height, DEFAULT_DIFFICULTY);
     }
 
     public int getMaxPlayers() {

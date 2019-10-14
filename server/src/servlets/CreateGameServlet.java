@@ -1,26 +1,22 @@
 package servlets;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.panickapps.response.ErrorResponse;
-import model.Difficulty;
-import model.Game;
-import model.GameSpecification;
-import model.GameState;
+import model.*;
 import model.response.GameCreatedResponse;
 import model.response.InvalidParameterResponse;
 import model.response.MissingParameterResponse;
-import model.response.UnknownFailureResponse;
 import util.APIUtils;
 import util.AuthUtils;
-import util.MinesweeperDB;
+import util.DynamoUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 public class CreateGameServlet extends HttpServlet {
 
@@ -115,20 +111,31 @@ public class CreateGameServlet extends HttpServlet {
 
         //5 - Process request:
         final String gameToken = UUID.randomUUID().toString().replace("-", "");
-        final GameSpecification gameSpecification = new GameSpecification(maxPlayers, width, height, difficulty, gameToken);
-        final Game game = new Game(gameSpecification);
+        final GameSpecification gameSpecification = new GameSpecification(maxPlayers, width, height, difficulty);
+        final Game game = new Game(gameSpecification, gameToken);
 
         //Start the game. This would be done by the admin manually in an actual game
         game.setGameState(GameState.STARTED);
 
         try {
-            MinesweeperDB.addGame(game);
+
+            ArrayList<Cell> cells = new ArrayList<>();
+            for (int row = 0; row < game.getFullBoardState().getHeight(); row++) {
+                for (int col = 0; col < game.getFullBoardState().getWidth(); col++) {
+                    cells.add(new Cell(game.getFullBoardState().getCells()[row][col], row, col, game.getToken()));
+                }
+            }
+
+            DynamoDBMapper mapper = DynamoUtil.getMapper();
+            mapper.batchSave(cells);
+            mapper.save(game);
             response.getWriter().write(new GameCreatedResponse(game.getToken()).toJSON());
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return;
+        } catch (Exception e) {
             response.setStatus(500);
-            response.getWriter().write(new ErrorResponse("Game not created", "Failed to create a game." + e.getMessage()).toJSON());
+            response.getWriter().write(new ErrorResponse("Game not created", "Failed to create a game. " + e.getMessage()).toJSON());
         }
+
 
     }
 
