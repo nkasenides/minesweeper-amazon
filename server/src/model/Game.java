@@ -12,7 +12,7 @@ import java.util.*;
 public class Game {
 
     private GameSpecification gameSpecification;
-    @DynamoDBIgnore private FullBoardState fullBoardState;
+    private FullBoardState fullBoardState;
     private GameState gameState;
     private String token;
 

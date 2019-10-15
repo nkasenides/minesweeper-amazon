@@ -118,16 +118,7 @@ public class CreateGameServlet extends HttpServlet {
         game.setGameState(GameState.STARTED);
 
         try {
-
-            ArrayList<Cell> cells = new ArrayList<>();
-            for (int row = 0; row < game.getFullBoardState().getHeight(); row++) {
-                for (int col = 0; col < game.getFullBoardState().getWidth(); col++) {
-                    cells.add(new Cell(game.getFullBoardState().getCells()[row][col], row, col, game.getToken()));
-                }
-            }
-
             DynamoDBMapper mapper = DynamoUtil.getMapper();
-            mapper.batchSave(cells);
             mapper.save(game);
             response.getWriter().write(new GameCreatedResponse(game.getToken()).toJSON());
             return;
