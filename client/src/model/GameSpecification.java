@@ -6,22 +6,38 @@ public class GameSpecification {
 
     public static final Difficulty DEFAULT_DIFFICULTY = Difficulty.MEDIUM;
 
-    private final int maxPlayers; // max number of players
-    private final int width;
-    private final int height;
-    private final String gameToken;
-    private final Difficulty difficulty;
+    private int maxPlayers; // max number of players
+    private int width;
+    private int height;
+    private Difficulty difficulty;
 
-    public GameSpecification(String gameToken, int maxPlayers, int width, int height, Difficulty difficulty) {
+    private GameSpecification() { }
+
+    public GameSpecification(int maxPlayers, int width, int height, Difficulty difficulty) {
         this.maxPlayers = maxPlayers;
         this.width = width;
         this.height = height;
-        this.gameToken = gameToken;
         this.difficulty = difficulty;
     }
 
-    public GameSpecification(String gameToken, int maxPlayers, int width, int height) throws InvalidGameSpecificationException {
-        this(gameToken, maxPlayers, width, height, DEFAULT_DIFFICULTY);
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public GameSpecification(int maxPlayers, int width, int height) throws InvalidGameSpecificationException {
+        this(maxPlayers, width, height, DEFAULT_DIFFICULTY);
     }
 
     public int getMaxPlayers() {
@@ -34,10 +50,6 @@ public class GameSpecification {
 
     public int getHeight() {
         return height;
-    }
-
-    public String getGameToken() {
-        return gameToken;
     }
 
     public Difficulty getDifficulty() {

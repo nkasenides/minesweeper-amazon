@@ -4,10 +4,12 @@ public class StatelessGame {
 
     private final GameSpecification gameSpecification;
     private final GameState gameState;
+    private final String token;
 
-    public StatelessGame(GameSpecification gameSpecification, GameState gameState) {
+    public StatelessGame(GameSpecification gameSpecification, GameState gameState, String gameToken) {
         this.gameSpecification = gameSpecification;
         this.gameState = gameState;
+        this.token = gameToken;
     }
 
     public GameSpecification getGameSpecification() {
@@ -16,6 +18,10 @@ public class StatelessGame {
 
     public GameState getGameState() {
         return gameState;
+    }
+
+    public String getToken() {
+        return token;
     }
 
 }
