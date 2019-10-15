@@ -8,30 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="55de1dae-b6f9-4653-90b2-5438fc2bb3a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-25@1109-13.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-25@1109-13.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1518-20_Player1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1518-20_Player1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1518-20_Player2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1518-20_Player2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1521-09_Player1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1521-09_Player1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1521-09_Player2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1521-09_Player2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1523-50_Player1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1523-50_Player1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1523-50_Player2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1523-50_Player2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1527-01_Player1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1527-01_Player1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1527-01_Player2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1527-01_Player2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/Simulations/2019-09-26@1527-01_Player3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../client/Simulations/old/2019-09-26@1527-01_Player3.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/api/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/api/API.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask$1PlayAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask$1PlayAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1GetStateAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1JoinGameAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1ListGamesAsyncTask.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$1ListGamesAsyncTask.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$LatencyMeasurement.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient$LatencyMeasurement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/out/production/Minesweeper Client/ui/PlayerClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/api/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/api/API.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/model/GameSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/model/GameSpecification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/model/StatelessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/model/StatelessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/ui/PlayerClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/ui/PlayerClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Session.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/servlets/PlayServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/PlayServlet.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -55,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servlets/PlayServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="292" column="11" lean-forward="true" selection-start-line="292" selection-start-column="11" selection-end-line="292" selection-end-column="11" />
+            <state relative-caret-position="2288">
+              <caret line="207" column="41" selection-start-line="207" selection-start-column="41" selection-end-line="207" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/StatelessGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+            <state relative-caret-position="408">
+              <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
               <folding>
                 <element signature="e#598#599#0" expanded="true" />
                 <element signature="e#626#627#0" expanded="true" />
@@ -357,17 +335,18 @@
       <workItem from="1570984900517" duration="8601000" />
       <workItem from="1571036767742" duration="4454000" />
       <workItem from="1571077063981" duration="9145000" />
-      <workItem from="1571139568112" duration="2898000" />
+      <workItem from="1571139568112" duration="4941000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47597000" />
+    <option name="totallyTimeSpent" value="49640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49757674" visible="true" weight="0.16471216" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49757674" visible="true" weight="0.16471216" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -383,7 +362,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32936078" />
@@ -758,30 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Session.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1635#1636#0" expanded="true" />
-            <element signature="e#1668#1669#0" expanded="true" />
-            <element signature="e#2848#2849#0" expanded="true" />
-            <element signature="e#2885#2886#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/servlets/PlayServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="292" column="11" lean-forward="true" selection-start-line="292" selection-start-column="11" selection-end-line="292" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -808,11 +763,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/StatelessGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        <state relative-caret-position="408">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
           <folding>
             <element signature="e#598#599#0" expanded="true" />
             <element signature="e#626#627#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Session.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1635#1636#0" expanded="true" />
+            <element signature="e#1668#1669#0" expanded="true" />
+            <element signature="e#2848#2849#0" expanded="true" />
+            <element signature="e#2885#2886#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servlets/PlayServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2288">
+          <caret line="207" column="41" selection-start-line="207" selection-start-column="41" selection-end-line="207" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

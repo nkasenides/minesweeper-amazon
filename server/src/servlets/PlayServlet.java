@@ -78,12 +78,11 @@ public class PlayServlet extends HttpServlet {
                 .withFilterExpression("begins_with(sessionID,:v1)")
                 .withExpressionAttributeValues(eav);
 
-        final List<Session> sessions =  mapper.scan(Session.class, gameScanExpression);
+        final List<Session> sessions = mapper.scan(Session.class, gameScanExpression);
 
         try {
             session = sessions.get(0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             response.getWriter().write(new ErrorResponse("Session not found", "Could not find session with id '" + sessionID + "'").toJSON());
             return;
         }
@@ -100,12 +99,11 @@ public class PlayServlet extends HttpServlet {
                 .withFilterExpression("begins_with(gameToken,:v1)")
                 .withExpressionAttributeValues(eav2);
 
-        final List<Game> games =  mapper.scan(Game.class, sessionExpression);
+        final List<Game> games = mapper.scan(Game.class, sessionExpression);
 
         try {
             game = games.get(0);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             response.getWriter().write(new ErrorResponse("Game not found", "Could not find game with token '" + session.getGameToken() + "'").toJSON());
             return;
         }
@@ -206,7 +204,7 @@ public class PlayServlet extends HttpServlet {
                 }
 
                 //Respond:
-//                publishStateToAllPlayers(game);
+                publishStateToAllPlayers(game);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
 
@@ -230,7 +228,7 @@ public class PlayServlet extends HttpServlet {
                     return;
                 }
 
-//                publishStateToAllPlayers(game);
+                publishStateToAllPlayers(game);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
 
@@ -258,7 +256,7 @@ public class PlayServlet extends HttpServlet {
                     return;
                 }
 
-//                publishStateToPlayer(game, session);
+                publishStateToPlayer(game, session);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
         }
@@ -266,37 +264,37 @@ public class PlayServlet extends HttpServlet {
 
     }
 
-//    This currently sends the new state to ALL players once any place in the board has been changes. Ideally, we would want
+    //    This currently sends the new state to ALL players once any place in the board has been changes. Ideally, we would want
 //    only those who have partial states intersecting with the changed cell to be updated.
-//    private void publishStateToAllPlayers(final Game game) {
-//        final List<Session> allSessions;
-//        try {
-//            allSessions = MinesweeperDB.getSessionsOfGame(game.getToken());
-//            for (final Session session : allSessions) {
-//                publishStateToPlayer(game, session);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void publishStateToAllPlayers(final Game game) {
+        final List<Session> allSessions;
+        HashMap<String, AttributeValue> eav3 = new HashMap<>();
+        eav3.put(":v1", new AttributeValue().withS(game.getToken()));
+        DynamoDBScanExpression sessionExpression = new DynamoDBScanExpression()
+                .withFilterExpression("begins_with(gameToken,:v1)")
+                .withExpressionAttributeValues(eav3);
+
+        allSessions = DynamoUtil.getMapper().scan(Session.class, sessionExpression);
+        for (final Session session : allSessions) {
+            publishStateToPlayer(game, session);
+        }
+    }
 
     //Publishes the state of the game to the player with the given session ID
-//    private void publishStateToPlayer(final Game game, final Session session) {
-//        try {
-//            final String channelName = "gameState-" + session.getSessionID();
-//            Channel channel = ably.channels.get(channelName);
-//            final GameState gameState = game.getGameState();
-//            final PartialBoardState partialState = new PartialBoardState(session.getPartialStatePreference().getWidth(), session.getPartialStatePreference().getHeight(), session.getPositionRow(), session.getPositionCol(), game.getFullBoardState());
-//            GameMessage message = new GameMessage(gameState, partialState);
-//            String json = message.toJson();
-//            channel.publish("state", json);
-//        }
-//        catch (AblyException e) {
-//            throw new RuntimeException (e);
-//        }
-//        catch (InvalidCellReferenceException e) {
-//            throw new RuntimeException (e);
-//        }
-//    }
+    private void publishStateToPlayer(final Game game, final Session session) {
+        try {
+            final String channelName = "gameState-" + session.getSessionID();
+            Channel channel = ably.channels.get(channelName);
+            final GameState gameState = game.getGameState();
+            final PartialBoardState partialState = new PartialBoardState(session.getPartialStatePreference().getWidth(), session.getPartialStatePreference().getHeight(), session.getPositionRow(), session.getPositionCol(), game.getFullBoardState());
+            GameMessage message = new GameMessage(gameState, partialState);
+            String json = message.toJson();
+            channel.publish("state", json);
+        } catch (AblyException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidCellReferenceException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
