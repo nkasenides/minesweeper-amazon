@@ -100,4 +100,10 @@ public class Session {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    @DynamoDBIgnore
+    public void changePoints(int points) {
+        this.points += points;
+    }
+
 }
