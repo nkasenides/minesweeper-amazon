@@ -28,8 +28,8 @@ public abstract class SyncHTTP {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-        setConnectTimeout(10000);
-        setReadTimeout(10000);
+        setConnectTimeout(30000);
+        setReadTimeout(30000);
     }
 
     public void setContentType(MimeType mimeType) {
@@ -53,8 +53,6 @@ public abstract class SyncHTTP {
 
             con.setRequestMethod(requestMethod.toString());
             con.setRequestProperty(MimeType.CONTENT_TYPE_KEY, MimeType.CONTENT_TYPE_JSON.getText());
-            con.setConnectTimeout(10000);
-            con.setReadTimeout(10000);
             con.setDoOutput(true);
 
             if (requestMethod == RequestMethod.POST) {

@@ -34,8 +34,8 @@ public abstract class HTTPAsyncTask extends AsyncTask {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-        setConnectTimeout(10000);
-        setReadTimeout(10000);
+        setConnectTimeout(30000);
+        setReadTimeout(30000);
     }
 
     public void setContentType(MimeType mimeType) {
