@@ -204,7 +204,7 @@ public class PlayServlet extends HttpServlet {
                 }
 
                 //Respond:
-                publishStateToAllPlayers(game);
+                publishStateToAllPlayers(game, row, col);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
 
@@ -228,7 +228,7 @@ public class PlayServlet extends HttpServlet {
                     return;
                 }
 
-                publishStateToAllPlayers(game);
+                publishStateToAllPlayers(game, row, col);
                 response.getWriter().write(new PlayResponse(move, row, col, game.getGameState(), session.getPoints()).toJSON());
                 return;
 
@@ -266,7 +266,7 @@ public class PlayServlet extends HttpServlet {
 
     //    This currently sends the new state to ALL players once any place in the board has been changes. Ideally, we would want
 //    only those who have partial states intersecting with the changed cell to be updated.
-    private void publishStateToAllPlayers(final Game game) {
+    private void publishStateToAllPlayers(final Game game, final int changedRow, final int changedCol) {
         final List<Session> allSessions;
         HashMap<String, AttributeValue> eav3 = new HashMap<>();
         eav3.put(":v1", new AttributeValue().withS(game.getToken()));
@@ -276,7 +276,9 @@ public class PlayServlet extends HttpServlet {
 
         allSessions = DynamoUtil.getMapper().scan(Session.class, sessionExpression);
         for (final Session session : allSessions) {
-            publishStateToPlayer(game, session);
+            if (changedRow >= 0 && changedRow <= session.getPositionRow() && changedCol >= 0 && changedCol <= session.getPositionCol()) {
+                publishStateToPlayer(game, session);
+            }
         }
     }
 
