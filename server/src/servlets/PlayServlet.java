@@ -276,7 +276,10 @@ public class PlayServlet extends HttpServlet {
 
         allSessions = DynamoUtil.getMapper().scan(Session.class, sessionExpression);
         for (final Session session : allSessions) {
-            if (changedRow >= 0 && changedRow <= session.getPositionRow() && changedCol >= 0 && changedCol <= session.getPositionCol()) {
+            if (
+                    changedRow >= session.getPositionRow() && changedRow < session.getPositionRow() + session.getPartialStatePreference().getHeight() &&
+                            changedCol >= session.getPositionCol() && changedCol < session.getPositionCol() + session.getPartialStatePreference().getWidth()
+            ) {
                 publishStateToPlayer(game, session);
             }
         }
